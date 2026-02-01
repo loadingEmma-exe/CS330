@@ -1,0 +1,3 @@
+﻿  OpenGLOperations.cpp
+C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLOperations\OpenGLOperations\OpenGLOperations.cpp(40,6): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  OpenGLOperations.vcxproj -> C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLOperations\Debug\OpenGLOperations.exe

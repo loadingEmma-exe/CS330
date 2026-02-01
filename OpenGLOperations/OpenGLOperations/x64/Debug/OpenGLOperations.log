@@ -1,0 +1,7 @@
+﻿  OpenGLOperations.cpp
+C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLOperations\OpenGLOperations\OpenGLOperations.cpp(29,6): warning C4326: return type of 'main' should be 'int' instead of 'void'
+OpenGLOperations.obj : error LNK2019: unresolved external symbol __imp_glutMainLoop referenced in function main
+OpenGLOperations.obj : error LNK2019: unresolved external symbol __imp___glutCreateWindowWithExit referenced in function glutCreateWindow_ATEXIT_HACK
+OpenGLOperations.obj : error LNK2019: unresolved external symbol __imp_glutDisplayFunc referenced in function main
+C:\glut\lib\glut32.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLOperations\x64\Debug\OpenGLOperations.exe : fatal error LNK1120: 3 unresolved externals
