@@ -75,6 +75,7 @@ void drawColorCube() {
 	cube();
 	glEnd();
 }
+
 void display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//add clearing depth buffer bit
@@ -96,6 +97,7 @@ void display(void)
 
 	glFlush();
 }
+
 void main(int argc, char** argv)
 {
 	glutInitWindowSize(640, 640);//change window size in pixels
