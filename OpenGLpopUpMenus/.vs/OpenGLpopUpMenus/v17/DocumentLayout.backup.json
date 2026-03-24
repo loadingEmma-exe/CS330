@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLpopUpMenus\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5C4F075B-914E-4541-B5EA-0CB2382B8A25}|OpenGLpopUpMenus\\OpenGLpopUpMenus.vcxproj|C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLpopUpMenus\\OpenGLpopUpMenus\\OpenGLpopUpMenus.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5C4F075B-914E-4541-B5EA-0CB2382B8A25}|OpenGLpopUpMenus\\OpenGLpopUpMenus.vcxproj|solutionrelative:OpenGLpopUpMenus\\OpenGLpopUpMenus.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OpenGLpopUpMenus.cpp",
+              "DocumentMoniker": "C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLpopUpMenus\\OpenGLpopUpMenus\\OpenGLpopUpMenus.cpp",
+              "RelativeDocumentMoniker": "OpenGLpopUpMenus\\OpenGLpopUpMenus.cpp",
+              "ToolTip": "C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLpopUpMenus\\OpenGLpopUpMenus\\OpenGLpopUpMenus.cpp",
+              "RelativeToolTip": "OpenGLpopUpMenus\\OpenGLpopUpMenus.cpp",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAAAG0AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-03-09T12:53:36.541Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

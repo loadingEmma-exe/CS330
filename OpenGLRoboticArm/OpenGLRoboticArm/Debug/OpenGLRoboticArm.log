@@ -1,0 +1,3 @@
+﻿  OpenGLRoboticArm.cpp
+C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLRoboticArm\OpenGLRoboticArm\OpenGLRoboticArm.cpp(266,6): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  OpenGLRoboticArm.vcxproj -> C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLRoboticArm\Debug\OpenGLRoboticArm.exe

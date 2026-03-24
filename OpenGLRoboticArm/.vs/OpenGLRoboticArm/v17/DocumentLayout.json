@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLRoboticArm\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0D4B0434-109C-4CF2-A9CD-8D1653462430}|OpenGLRoboticArm\\OpenGLRoboticArm.vcxproj|C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLRoboticArm\\OpenGLRoboticArm\\OpenGLRoboticArm.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0D4B0434-109C-4CF2-A9CD-8D1653462430}|OpenGLRoboticArm\\OpenGLRoboticArm.vcxproj|solutionrelative:OpenGLRoboticArm\\OpenGLRoboticArm.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OpenGLRoboticArm.cpp",
+              "DocumentMoniker": "C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLRoboticArm\\OpenGLRoboticArm\\OpenGLRoboticArm.cpp",
+              "RelativeDocumentMoniker": "OpenGLRoboticArm\\OpenGLRoboticArm.cpp",
+              "ToolTip": "C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLRoboticArm\\OpenGLRoboticArm\\OpenGLRoboticArm.cpp",
+              "RelativeToolTip": "OpenGLRoboticArm\\OpenGLRoboticArm.cpp",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAAABABAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-02-21T23:03:35.587Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

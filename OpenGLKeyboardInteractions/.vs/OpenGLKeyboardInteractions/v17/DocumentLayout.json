@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLKeyboardInteractions\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F4D0D3B2-E571-4549-BF9A-32D1A3E8B039}|OpenGLKeyboardInteractions\\OpenGLKeyboardInteractions.vcxproj|C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLKeyboardInteractions\\OpenGLKeyboardInteractions\\OpenGLKeyboardInteractions.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F4D0D3B2-E571-4549-BF9A-32D1A3E8B039}|OpenGLKeyboardInteractions\\OpenGLKeyboardInteractions.vcxproj|solutionrelative:OpenGLKeyboardInteractions\\OpenGLKeyboardInteractions.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OpenGLKeyboardInteractions.cpp",
+              "DocumentMoniker": "C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLKeyboardInteractions\\OpenGLKeyboardInteractions\\OpenGLKeyboardInteractions.cpp",
+              "RelativeDocumentMoniker": "OpenGLKeyboardInteractions\\OpenGLKeyboardInteractions.cpp",
+              "ToolTip": "C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLKeyboardInteractions\\OpenGLKeyboardInteractions\\OpenGLKeyboardInteractions.cpp*",
+              "RelativeToolTip": "OpenGLKeyboardInteractions\\OpenGLKeyboardInteractions.cpp*",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAAAH4AAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-02-09T20:41:02.039Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

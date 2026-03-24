@@ -1,0 +1,3 @@
+﻿  OpenGL.cpp
+C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGL\OpenGL\OpenGL.cpp(134,6): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  OpenGL.vcxproj -> C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGL\Debug\OpenGL.exe

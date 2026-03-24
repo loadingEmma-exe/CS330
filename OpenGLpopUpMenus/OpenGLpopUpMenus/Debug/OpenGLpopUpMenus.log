@@ -1,0 +1,3 @@
+﻿  OpenGLpopUpMenus.cpp
+C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLpopUpMenus\OpenGLpopUpMenus\OpenGLpopUpMenus.cpp(98,6): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  OpenGLpopUpMenus.vcxproj -> C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLpopUpMenus\Debug\OpenGLpopUpMenus.exe
