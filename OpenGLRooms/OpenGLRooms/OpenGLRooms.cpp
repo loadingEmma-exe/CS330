@@ -4,7 +4,7 @@
 
 int windowWidth = 1024; //init window width
 int windowHeight = 768; //init window height
-int doorHinge = 90;
+int doorHinge = 0;
 
 int x = -3;
 int y = -3;
@@ -12,7 +12,7 @@ int z = -6;
 
 float speed = 0.1f;
 bool open = false;
-int angle = 90;
+int angle;
 
 float aspect = float(windowWidth) / float(windowHeight);
 float spin = 0.0; //init spin to 0, for no spin
@@ -69,6 +69,18 @@ void rotatePoint(double a[], double theta, double p[]) // rotation point p, with
     p[0] = temp[0];
     p[1] = temp[1];
     p[2] = temp[2];
+}
+
+void Timer(int value) {
+    if (open && doorHinge <= 90) {
+        doorHinge += 5;
+    }
+    else if (!open && doorHinge >= 0) {
+        doorHinge -= 5;
+    }
+
+    glutPostRedisplay();
+    glutTimerFunc(30, Timer, 0);
 }
 
 void LeftCamera()
@@ -143,6 +155,16 @@ void BackCamera() {
     center[2] += direction[2] * speed;
 }
 
+void drawDoor() {
+    glBegin(GL_QUADS);
+        glColor3f(1, 1, 1); //door white
+        glVertex3f(-x / 3, y, z / 2); //bottom left corner
+        glVertex3f(-x / 3, -y / 1.5, z / 2); //top left corner
+        glVertex3f(x / 3, -y / 1.5, z / 2); //top right corner
+        glVertex3f(x / 3, y, z / 2); //bottom right corner
+    glEnd();
+}
+
 void specialKeys(int key, int x, int y)
 { //assigns keys for keyboard interaction
     switch (key)
@@ -168,24 +190,15 @@ void keyboard(unsigned char key, int x, int y) {
     switch (key) {
     case 'f': //f, to move the camera in the +ve Z direction
         ForwardCamera();
-
         break;
     case 'b': //b, to move the camera in the -ve Z direction
         BackCamera();
         break;
+    case ' ':
+        open = !open;
+        break;
     }
-
     glutPostRedisplay();
-}
-
-void drawDoor() {
-    glBegin(GL_QUADS);
-        glColor3f(1, 1, 1); //door white
-        glVertex3f(-x/3, y, z/2); //bottom left corner
-        glVertex3f(-x/3, -y/1.5, z/2); //top left corner
-        glVertex3f(x/3, -y/1.5, z/2); //top right corner
-        glVertex3f(x/3, y, z/2); //bottom right corner
-    glEnd();
 }
 
 void drawDoorway() {
@@ -277,18 +290,6 @@ void drawCeiling() {
     glEnd();
 }
 
-void Timer(int value) {
-    if (open && angle != 90) {
-        doorHinge += 5;
-    }
-    else if (!open && doorHinge != 0) {
-        doorHinge -= 5;
-    }
-
-    glutPostRedisplay();
-    glutTimerFunc(30, Timer, 0);
-}
-
 void display(void)
 { //displays our current matrix
     //setup
@@ -301,7 +302,6 @@ void display(void)
 
     //matrix
     glPushMatrix(); //pushes matrix to stack
-        drawDoor();
         drawDoorway();
         drawBackLong();
         drawFrontLong();
@@ -309,6 +309,11 @@ void display(void)
         drawFrontWall();
         drawFloor();
         drawCeiling();
+    glPushMatrix();
+        glTranslatef(x / 3, 0, z / 2); //from orgin
+        glRotatef(doorHinge, 0, 1, 0);
+        glTranslatef( -x / 3, 0, -z/2); //to orgin
+        drawDoor();
     glPopMatrix(); //pop matrix from stack
 
     glFlush();
