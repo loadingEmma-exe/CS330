@@ -377,7 +377,7 @@ void display(void)
         glScalef(4.0, 4.0, 4.0);
         glRotatef(spin, 0, 1, 0);
         glCallList(importRotate);
-    //glPopMatrix();
+    glPopMatrix();
 
     glPushMatrix();
         glTranslatef(x / 3, 0, z / 2); //from orgin
@@ -390,7 +390,7 @@ void display(void)
         glColor3f(1.0, 0.2, 0.4);
         glTranslatef(-x / 3, 0, z/4);
         drawmodel_al();
-    //glPopMatrix();
+    glPopMatrix(); //comment this out to get the minecraft bug
 
     glFlush();
     glutSwapBuffers();
