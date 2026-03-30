@@ -102,7 +102,7 @@ void drawmodel_al(void)
 {
     if (!pmodel2)
     {
-        pmodel2 = glmReadOBJ((char*)"data/al.obj");
+        pmodel2 = glmReadOBJ((char*)"data/porsche.obj");
         if (!pmodel2) {
             exit(0);
         }
@@ -370,22 +370,27 @@ void display(void)
         drawFrontWall();
         drawFloor();
         drawCeiling();
+
     glPushMatrix();//flower vase
         glColor3f(1.0, 0.0, 0.0);
         glTranslatef(0, 0, -1.0);
         glScalef(4.0, 4.0, 4.0);
         glRotatef(spin, 0, 1, 0);
         glCallList(importRotate);
-    glPopMatrix();
+    //glPopMatrix();
+
     glPushMatrix();
         glTranslatef(x / 3, 0, z / 2); //from orgin
         glRotatef(doorHinge, 0, 1, 0);
         glTranslatef(-x / 3, 0, -z / 2); //to orgin
         drawDoor();
     glPopMatrix(); //pop matrix from stack
-    glPushMatrix();
-    drawmodel_al();
 
+    glPushMatrix();
+        glColor3f(1.0, 0.2, 0.4);
+        glTranslatef(-x / 3, 0, z/4);
+        drawmodel_al();
+    //glPopMatrix();
 
     glFlush();
     glutSwapBuffers();
