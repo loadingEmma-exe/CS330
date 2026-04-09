@@ -150,8 +150,10 @@ void specialKeys(int key, int x, int y)
     glutPostRedisplay();
 }
 
-void display(void)
-{
+void init() {
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_DEPTH);
+
     //load your images
     Image* image1 = loadBMP("floor.bmp");
     Image* image2 = loadBMP("monalisa.bmp");
@@ -160,89 +162,85 @@ void display(void)
     _textureId1 = loadTexture(image1);
     _textureId2 = loadTexture(image2);
 
-    //setup
-    glClearColor(0.0, 0.0, 0.0, 0.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(eye[0], eye[1], eye[2], center[0], center[1], center[2], up[0], up[1], up[2]); //defines camera view
-
-    //texture mapping
-    glPushMatrix();
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, _textureId1);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glutSolidCube(0.25);        
-        glDisable(GL_TEXTURE_2D);
-    glPopMatrix();
-
-    glPushMatrix();
-    glBegin(GL_QUADS); //QUADS, POLYGON, 3D
-    //top face (y 1.0f)
-    glColor3f(0.0f, 1.0f, 0.0f);//green
-
-    glVertex3f(1.0f, 1.0f, -1.0f);
-    glVertex3f(-1.0f, 1.0f, -1.0f);
-    glVertex3f(-1.0f, 1.0f, 1.0f);
-    glVertex3f(1.0f, 1.0f, 1.0f);
-
-    //Bottom face (y -1.0)
-    glColor3f(1.0f, 0.5f, 0.0f);//orange
-
-    glVertex3f(1.0f, -1.0f, 1.0f);
-    glVertex3f(-1.0f, -1.0f, 1.0f);
-    glVertex3f(-1.0f, -1.0f, -1.0f);
-    glVertex3f(1.0f, -1.0f, -1.0f);
-
-    //front face (z 1.0f)
-    glColor3f(1.0f, 0.0f, 0.0f); //red
-
-    glVertex3f(1.0f, 1.0f, 1.0f);
-    glVertex3f(-1.0f, 1.0f, 1.0f);
-    glVertex3f(-1.0f, -1.0f, 1.0f);
-    glVertex3f(1.0f, -1.0f, 1.0f);
-
-    //back face (z - 1.0
-    glColor3f(1.0f, 0.5f, 0.5f); //pink
-
-    glVertex3f(1.0f, 1.0f, -1.0f);
-    glVertex3f(-1.0f, 1.0f, -1.0f);
-    glVertex3f(-1.0f, -1.0f, -1.0f);
-    glVertex3f(1.0f, -1.0f, -1.0f);
-
-    //left face (x -1.0)
-    glColor3f(0.0, 0.0, 1.0);//blue
-
-    glVertex3f(-1.0f, 1.0f, -1.0f);
-    glVertex3f(-1.0f, 1.0f, 1.0f);
-    glVertex3f(-1.0f, -1.0f, 1.0f);
-    glVertex3f(-1.0f, -1.0f, -1.0f);
-
-    //right face (x 1.0)
-    glColor3f(1.0f, 0.7, 0.2); //yellow
-
-    glVertex3f(1.0f, 1.0f, -1.0f);
-    glVertex3f(1.0f, 1.0f, 1.0f);
-    glVertex3f(1.0f, -1.0f, 1.0f);
-    glVertex3f(1.0f, -1.0f, -1.0f);
-
-    glEnd();
-
-    glFlush();
-    glutSwapBuffers();
-
     //free memory
     delete image1;
     delete image2;
 }
 
+void display(void)
+{
+    //setup
+    //glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(eye[0], eye[1], eye[2], center[0], center[1], center[2], up[0], up[1], up[2]); //defines camera view
+    
+    //texture mapping
+    glPushMatrix();
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);  
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glEnable(GL_TEXTURE_2D); 
+        glPushMatrix();
+        glBegin(GL_QUADS);
+        
+        //top face (y 1.0f)
+        
+        glVertex3f(1.0f, 1.0f, -1.0f);
+        glTexCoord2f(1.0f, 0.0f);
+       
+        glVertex3f(-1.0f, 1.0f, -1.0f);
+        glTexCoord2f(0.0f, 0.0f);
+
+        glVertex3f(-1.0f, 1.0f, 1.0f);
+        glTexCoord2f(0.0f, 1.0f);
+        
+        glVertex3f(1.0f, 1.0f, 1.0f);
+        glTexCoord2f(1.0f, 1.0f);
+            
+        glBindTexture(GL_TEXTURE_2D, _textureId1); //was above tex parameteri
+
+    glEnd();
+
+    glPushMatrix();
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glEnable(GL_TEXTURE_2D);
+        glPushMatrix();
+        glBegin(GL_QUADS);
+
+        //bottom face (y -1.0f)
+
+        glVertex3f(1.0f, -1.0f, 1.0f);
+        glTexCoord2f(1,1);
+
+        glVertex3f(-1.0f, -1.0f, 1.0f);
+        glTexCoord2f(0,1);
+
+        glVertex3f(-1.0f, -1.0f, -1.0f);
+        glTexCoord2f(0,0);
+
+        glVertex3f(1.0f, -1.0f, -1.0f);
+        glTexCoord2f(1,0);
+
+        glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
+
+     glEnd();
+
+
+    glDisable(GL_TEXTURE_2D);
+    glFlush();
+    glutSwapBuffers();
+}
+
 void main(int argc, char** argv)
 {
     glutInitWindowSize(windowWidth, windowHeight); //init window
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); //init display mode
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); //init display mode
     glutInitWindowPosition(50, 50); //init position
     glutCreateWindow("Texture Mapping"); //window name
+
+    init();
 
     glMatrixMode(GL_PROJECTION);
     gluPerspective(60, aspect, 0, 10);
