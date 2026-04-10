@@ -179,7 +179,10 @@ void display(void)
     //texture mapping
     glPushMatrix();
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);  
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); //was GL_REPEAT
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
         glEnable(GL_TEXTURE_2D); 
         glPushMatrix();
         glBegin(GL_QUADS);
@@ -201,10 +204,14 @@ void display(void)
         glBindTexture(GL_TEXTURE_2D, _textureId1); //was above tex parameteri
 
     glEnd();
+    glPopMatrix();
 
     glPushMatrix();
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); //was GL_REPEAT
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
         glEnable(GL_TEXTURE_2D);
         glPushMatrix();
         glBegin(GL_QUADS);
@@ -226,7 +233,7 @@ void display(void)
         glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
 
      glEnd();
-
+     glPopMatrix();
 
     glDisable(GL_TEXTURE_2D);
     glFlush();
