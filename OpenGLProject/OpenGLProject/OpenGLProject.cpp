@@ -47,7 +47,7 @@ light_position[] = { x, -y, -z, 1.0 }; //position
 GLfloat light_ambient2[] = { 1.0, 1.0, 1.0, 1.0 },//color //comes from above the doorway
 light_diffuse2[] = { 1.0, 1.0, 1.0, 1.0 },
 light_specular2[] = { 1.0, 1.0, 1.0, 1.0 },
-light_position2[] = { 0.0, y, z/2, 1.0 }; //position
+light_position2[] = { 0.5, 0.5, 0.5, 1.0 }; //position
 
 //Setting materials for object1 //WALLS
 
@@ -323,7 +323,7 @@ void drawDoorway() {
     glBegin(GL_QUADS);
         glColor3f(1, 1, 0.8);
         glVertex3f(-x / 3, -y / 1.5, z / 2); //top left corner
-        glVertex3f(-x, -y / 1.5, z / 2); //top right corner
+        glVertex3f(-x, -y / 1.5, z /2); //top right corner
         glVertex3f(-x, y, z / 2); //bottom right corner
         glVertex3f(-x / 3, y, z / 2); //bottom left corner
     glEnd();
@@ -413,8 +413,8 @@ void drawTable() {
         glColor3f(1, 1, 1); //white
         glVertex3f(x/2,y, z/5); //bottom left
         glVertex3f(x/2, y/4, z/5); //top left
-        glVertex3f(x/2, y/4, -z/5); //top right
-        glVertex3f(x/2, y, -z/5); //bottom right
+        glVertex3f(x/2, y/4, 0); //top right
+        glVertex3f(x/2, y, 0); //bottom right
     glEnd();
 
     //left short
@@ -422,16 +422,16 @@ void drawTable() {
         glColor3f(1, 1, 1); //white
         glVertex3f(-x / 2, y, z / 5); //bottom left
         glVertex3f(-x / 2, y / 4, z / 5); //top left
-        glVertex3f(-x / 2, y / 4, -z / 5); //top right
-        glVertex3f(-x / 2, y, -z / 5); //bottom right
+        glVertex3f(-x / 2, y / 4, 0); //top right
+        glVertex3f(-x / 2, y, 0); //bottom right
     glEnd();
 
     //top side
     glBegin(GL_QUADS);
         glColor3f(1, 1, 1); //white
         glVertex3f(-x / 2, y / 4, z / 5); //bottom left
-        glVertex3f(-x / 2, y / 4, -z / 5); //top left
-        glVertex3f(x / 2, y / 4, -z / 5); //top right
+        glVertex3f(-x / 2, y / 4, 0); //top left
+        glVertex3f(x / 2, y / 4, 0); //top right
         glVertex3f(x / 2, y / 4, z / 5); //bottom right
     glEnd();
 
@@ -447,20 +447,23 @@ void drawTable() {
     //back face
     glBegin(GL_QUADS);
         glColor3f(1, 1, 1); //white
-        glVertex3f(-x / 2, y, -z / 5); //bottom left
-        glVertex3f(-x / 2, y / 4, -z / 5); //top left
-        glVertex3f(x / 2, y / 4, -z / 5); //top right
-        glVertex3f(x / 2, y, -z / 5); //bottom right
+        glVertex3f(-x / 2, y, 0); //bottom left
+        glVertex3f(-x / 2, y / 4, 0); //top left
+        glVertex3f(x / 2, y / 4, 0); //top right
+        glVertex3f(x / 2, y, 0); //bottom right
     glEnd();
 
     //floor
     glBegin(GL_QUADS);
         glColor3f(1, 1, 1); //white
         glVertex3f(-x / 2, -y / 4, z / 5); //bottom left
-        glVertex3f(-x / 2, -y / 4, -z / 5); //top left
-        glVertex3f(x / 2, -y / 4, -z / 5); //top right
+        glVertex3f(-x / 2, -y / 4, 0); //top left
+        glVertex3f(x / 2, -y / 4, 0); //top right
         glVertex3f(x / 2, -y / 4, z / 5); //bottom right
     glEnd();
+
+    glShadeModel(GL_FLAT);
+
 }
 
 void display(void)
@@ -510,8 +513,8 @@ void init()
 {
     set_material_props();
 
-    //set_light_props(); 
-    //set_light_props2();
+    set_light_props(); 
+    set_light_props2();
    
     glEnable(GL_DEPTH_TEST);
     glMatrixMode(GL_PROJECTION);
