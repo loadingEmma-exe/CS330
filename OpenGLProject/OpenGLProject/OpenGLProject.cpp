@@ -41,36 +41,36 @@ float translation[3] = { 0.0f, 0.0f, 0.0f }; //define translation of net movemen
 
 GLfloat light_ambient[] = { 1.0, 1.0, 1.0, 1.0 },//color //comes from below the back wall
 light_diffuse[] = { 0.5, 0.5, 0.5, 1.0 },
-light_specular[] = { 1.0, 1.0, 1.0, 1.0 },
+light_specular[] = { 0.8, 0.8, 0.8, 0.8 },
 light_position[] = { x, -y, -z, 1.0 }; //position
 
 GLfloat light_ambient2[] = { 1.0, 1.0, 1.0, 1.0 },//color //comes from above the doorway
 light_diffuse2[] = { 1.0, 1.0, 1.0, 1.0 },
-light_specular2[] = { 1.0, 1.0, 1.0, 1.0 },
-light_position2[] = { 0.5, 0.5, 0.5, 1.0 }; //position
+light_specular2[] = { 0.8, 0.8, 0.8, 0.8 },
+light_position2[] = { 0.7, 0.7, 0.7, 1.0 }; //position
 
 //Setting materials for object1 //WALLS
 
-GLfloat material_ambient[] = { 1, 1, 0.8, 1.0 },
-material_diffuse[] = { 0.7, 0.01, 0.01, 1.0 },
-material_specular[] = { 0.7, 0.7, 0.7, 1.0 },
+GLfloat material_ambient[] = { 1, 1, 0.8, 1.0 }, //low light color
+material_diffuse[] = { 1, 1, 1, 1.0 }, //base color
+material_specular[] = { 0, 0, 0, 1.0 }, //highlight
 material_shininess = 10;
 
 //Setting materials for object2
 
-GLfloat material_ambient2[] = { 0, 0, 1, 1.0 },
-material_diffuse2[] = { 0, 0, 10, 1.0 },
-material_specular2[] = { 0.5, 0.5, 0.5, 1.0 },
+GLfloat material_ambient2[] = { 0, 0, 0, 0 }, //low light color
+material_diffuse2[] = { 0, 0, 0, 0}, //base color
+material_specular2[] = { 0, 0, 0, 0 }, //highlight
 material_shininess2 = 1;
 
 //Setting materials for object3
 
-GLfloat material_ambient3[] = { 0, 0, 1, 1.0 },
-material_diffuse3[] = { 0, 0, 10, 1.0 },
-material_specular3[] = { 0.5, 0.5, 0.5, 1.0 },
-material_shininess3 = 1;
+GLfloat material_ambient3[] = { 0.5, 0.5, 0.5, 1.0 }, //low light color
+material_diffuse3[] = { 0, 0, 0, 0 }, //base color
+material_specular3[] = { 0.5, 0.5, 0.5, 1.0 }, //hig
+material_shininess3 = 100;
 
-void set_material_props()
+void set_material_props() //diffuse
 {
     glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse);
@@ -84,6 +84,14 @@ void set_material_props2()
     glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse2);
     glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular2);
     glMaterialf(GL_FRONT, GL_SHININESS, material_shininess2);
+}
+
+void set_material_props3()
+{
+    glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient3);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse3);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular3);
+    glMaterialf(GL_FRONT, GL_SHININESS, material_shininess3);
 }
 
 void set_light_props()
@@ -463,7 +471,14 @@ void drawTable() {
     glEnd();
 
     glShadeModel(GL_FLAT);
+}
 
+void drawRose() {
+    glColor3f(0.7, 0.6, 0.4);
+    glTranslatef(0, 0, -1.0);
+    glScalef(4.0, 4.0, 4.0);
+    glRotatef(spin, 0, 1, 0);
+    glCallList(importRotate);
 }
 
 void display(void)
@@ -502,7 +517,29 @@ void display(void)
     glPopMatrix(); //pop matrix from stack
 
     glPushMatrix();
-        drawTable();
+        glShadeModel(GL_SMOOTH);
+        drawTable(); //table
+    glPopMatrix();
+
+    glPushMatrix();
+        glColor3f(1, 0, 0);
+        glTranslatef(0, 0.20, -0.5);
+        glutSolidTeapot(0.25);
+        //set_material_props();
+    glPopMatrix();
+
+    glPushMatrix();
+        glColor3f(0, 1, 0);
+        glTranslatef(-0.65, 0.05, -0.5);
+        glutSolidTeapot(0.10);
+        //set_material_props2();
+    glPopMatrix();
+
+    glPushMatrix();
+        glColor3f(0, 0, 1);
+        glTranslatef(0.65, 0.05, -0.5);
+        glutSolidTeapot(0.10);
+        //set_material_props3();
     glPopMatrix();
 
     glFlush();
@@ -512,14 +549,14 @@ void display(void)
 void init()
 {
     set_material_props();
+    set_material_props2();
+    set_material_props3();
 
     set_light_props(); 
     set_light_props2();
    
     glEnable(GL_DEPTH_TEST);
     glMatrixMode(GL_PROJECTION);
-    //gluPerspective(100.0, 1.0, 1.0, 10.0);
-    //gluLookAt(eye[0], eye[1], eye[2], center[0], center[1], center[2], up[0], up[1], up[2]);
 
     glMatrixMode(GL_MODELVIEW);
 }
@@ -527,6 +564,9 @@ void init()
 int main(int argc, char** argv)
 {
     glutInitWindowSize(windowWidth, windowHeight); //init window
+
+    glutInit(&argc, argv);
+
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); //init display mode
     glutInitWindowPosition(50, 50);
     glutCreateWindow("OpenGl Objects Project"); //window name
