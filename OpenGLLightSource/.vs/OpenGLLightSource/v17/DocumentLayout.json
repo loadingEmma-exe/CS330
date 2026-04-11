@@ -1,12 +1,37 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLLightSource\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D8C9B92C-935C-402A-9DE5-22CD138F7BF4}|OpenGLLightSource\\OpenGLLightSource.vcxproj|C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLLightSource\\OpenGLLightSource\\Light_Materials_Properties.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D8C9B92C-935C-402A-9DE5-22CD138F7BF4}|OpenGLLightSource\\OpenGLLightSource.vcxproj|solutionrelative:OpenGLLightSource\\Light_Materials_Properties.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Light_Materials_Properties.cpp",
+              "DocumentMoniker": "C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLLightSource\\OpenGLLightSource\\Light_Materials_Properties.cpp",
+              "RelativeDocumentMoniker": "OpenGLLightSource\\Light_Materials_Properties.cpp",
+              "ToolTip": "C:\\Users\\ecray\\OneDrive\\Documents\\CS330\\CS330\\OpenGLLightSource\\OpenGLLightSource\\Light_Materials_Properties.cpp",
+              "RelativeToolTip": "OpenGLLightSource\\Light_Materials_Properties.cpp",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAswGkAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-11T16:21:21.411Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

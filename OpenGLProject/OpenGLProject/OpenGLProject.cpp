@@ -1,6 +1,4 @@
 // OpenGLProject.cpp : This file contains the 'main' function. Program execution begins and ends there.
-
-// OpenGLRooms.cpp : This file contains the 'main' function. Program execution begins and ends there.
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -22,7 +20,7 @@ int doorHinge = 0;
 
 int x = -3;
 int y = -3;
-int z = -9; //was 6
+int z = -9;
 
 float speed = 0.1f;
 bool open = false;
@@ -33,11 +31,82 @@ float spin = 0.0; //init spin to 0, for no spin
 
 bool rotating = false; //init rotating to false, for not rotating
 
-double eye[] = { 0, 1, -2 }; //define the eye axis of the camera to be the z axis
+double eye[] = { 0, 1, -2}; //define the eye axis of the camera to be the z axis
 double center[] = { 0, 1, 0 }; //define center of the image to be the orgin
 double up[] = { 0, 1, 0 }; //define the up axis of the camera to be the y axis
 
 float translation[3] = { 0.0f, 0.0f, 0.0f }; //define translation of net movement
+
+//Setting White Light Source RGBA
+
+GLfloat light_ambient[] = { 1.0, 1.0, 1.0, 1.0 },//color //comes from below the back wall
+light_diffuse[] = { 0.5, 0.5, 0.5, 1.0 },
+light_specular[] = { 1.0, 1.0, 1.0, 1.0 },
+light_position[] = { x, -y, -z, 1.0 }; //position
+
+GLfloat light_ambient2[] = { 1.0, 1.0, 1.0, 1.0 },//color //comes from above the doorway
+light_diffuse2[] = { 1.0, 1.0, 1.0, 1.0 },
+light_specular2[] = { 1.0, 1.0, 1.0, 1.0 },
+light_position2[] = { 0.0, y, z/2, 1.0 }; //position
+
+//Setting materials for object1 //WALLS
+
+GLfloat material_ambient[] = { 1, 1, 0.8, 1.0 },
+material_diffuse[] = { 0.7, 0.01, 0.01, 1.0 },
+material_specular[] = { 0.7, 0.7, 0.7, 1.0 },
+material_shininess = 10;
+
+//Setting materials for object2
+
+GLfloat material_ambient2[] = { 0, 0, 1, 1.0 },
+material_diffuse2[] = { 0, 0, 10, 1.0 },
+material_specular2[] = { 0.5, 0.5, 0.5, 1.0 },
+material_shininess2 = 1;
+
+//Setting materials for object3
+
+GLfloat material_ambient3[] = { 0, 0, 1, 1.0 },
+material_diffuse3[] = { 0, 0, 10, 1.0 },
+material_specular3[] = { 0.5, 0.5, 0.5, 1.0 },
+material_shininess3 = 1;
+
+void set_material_props()
+{
+    glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
+    glMaterialf(GL_FRONT, GL_SHININESS, material_shininess);
+}
+
+void set_material_props2()
+{
+    glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient2);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse2);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular2);
+    glMaterialf(GL_FRONT, GL_SHININESS, material_shininess2);
+}
+
+void set_light_props()
+{
+    glLightfv(GL_LIGHT1, GL_POSITION, light_position);
+    glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient);
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular);
+    glEnable(GL_LIGHT1);
+
+    glEnable(GL_LIGHTING);
+}
+
+void set_light_props2()
+{
+    glLightfv(GL_LIGHT2, GL_POSITION, light_position2);
+    glLightfv(GL_LIGHT2, GL_AMBIENT, light_ambient2);
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, light_diffuse2);
+    glLightfv(GL_LIGHT2, GL_SPECULAR, light_specular2);
+    glEnable(GL_LIGHT2);
+
+    glEnable(GL_LIGHTING);
+}
 
 void crossProduct(double a[], double b[], double c[])
 {
@@ -205,11 +274,11 @@ void BackCamera() {
 
 void drawDoor() {
     glBegin(GL_QUADS);
-    glColor3f(1, 1, 1); //door white
-    glVertex3f(-x / 3, y, z / 2); //bottom left corner
-    glVertex3f(-x / 3, -y / 1.5, z / 2); //top left corner
-    glVertex3f(x / 3, -y / 1.5, z / 2); //top right corner
-    glVertex3f(x / 3, y, z / 2); //bottom right corner
+        glColor3f(1, 1, 1); //door white
+        glVertex3f(-x / 3, y, z / 2); //bottom left corner
+        glVertex3f(-x / 3, -y / 1.5, z / 2); //top left corner
+        glVertex3f(x / 3, -y / 1.5, z / 2); //top right corner
+        glVertex3f(x / 3, y, z / 2); //bottom right corner
     glEnd();
 }
 
@@ -252,35 +321,35 @@ void keyboard(unsigned char key, int x, int y) {
 void drawDoorway() {
     //left panel
     glBegin(GL_QUADS);
-    glColor3f(1, 1, 0.8);
-    glVertex3f(-x / 3, -y / 1.5, z / 2); //top left corner
-    glVertex3f(-x, -y / 1.5, z / 2); //top right corner
-    glVertex3f(-x, y, z / 2); //bottom right corner
-    glVertex3f(-x / 3, y, z / 2); //bottom left corner
+        glColor3f(1, 1, 0.8);
+        glVertex3f(-x / 3, -y / 1.5, z / 2); //top left corner
+        glVertex3f(-x, -y / 1.5, z / 2); //top right corner
+        glVertex3f(-x, y, z / 2); //bottom right corner
+        glVertex3f(-x / 3, y, z / 2); //bottom left corner
     glEnd();
 
     //right panel
     glBegin(GL_QUADS);
-    glColor3f(1, 1, 0.8);
-    glVertex3f(x / 3, -y / 1.5, z / 2); //top left corner
-    glVertex3f(x, -y / 1.5, z / 2); //top right corner
-    glVertex3f(x, y, z / 2); //bottom right corner
-    glVertex3f(x / 3, y, z / 2); //bottom left corner
+        glColor3f(1, 1, 0.8);
+        glVertex3f(x / 3, -y / 1.5, z / 2); //top left corner
+        glVertex3f(x, -y / 1.5, z / 2); //top right corner
+        glVertex3f(x, y, z / 2); //bottom right corner
+        glVertex3f(x / 3, y, z / 2); //bottom left corner
     glEnd();
 
     //mantle
     glBegin(GL_QUADS);
-    glColor3f(1, 1, 0.8);
-    glVertex3f(-x, -y, z / 2); //top left corner
-    glVertex3f(x, -y, z / 2); //top right corner
-    glVertex3f(x, -y / 1.5, z / 2); //bottom right corner
-    glVertex3f(-x, -y / 1.5, z / 2); //bottom left corner
+        glColor3f(1, 1, 0.8);
+        glVertex3f(-x, -y, z / 2); //top left corner
+        glVertex3f(x, -y, z / 2); //top right corner
+        glVertex3f(x, -y / 1.5, z / 2); //bottom right corner
+        glVertex3f(-x, -y / 1.5, z / 2); //bottom left corner
     glEnd();
 }
 
 void drawBackLong() {
     glBegin(GL_QUADS);
-    glColor3f(0.6, 0.3, 0.2);//wall orange
+    glColor3f(1, 1, 0.8);
     glVertex3f(-x, y, z); //top left corner
     glVertex3f(-x, y, 0); //top right corner
     glVertex3f(-x, -y, 0); //bottom right corner
@@ -290,7 +359,7 @@ void drawBackLong() {
 
 void drawFrontLong() {
     glBegin(GL_QUADS);
-    glColor3f(0.2, 0.3, 0.6); //wall blue
+    glColor3f(1, 1, 0.8);
     glVertex3f(x, y, z); //top left corner
     glVertex3f(x, y, 0); //top right corner
     glVertex3f(x, -y, 0); //bottom right corner
@@ -300,21 +369,21 @@ void drawFrontLong() {
 
 void drawBackWall() {
     glBegin(GL_QUADS);
-    glColor3f(0.8, 1, 0.3);
-    glVertex3f(-x, y, z); //top left corner
-    glVertex3f(x, y, z); //top right corner
-    glVertex3f(x, -y, z); //bottom right corner
-    glVertex3f(-x, -y, z); //bottom left corner
+        glColor3f(1, 1, 0.8);
+        glVertex3f(-x, y, z); //top left corner
+        glVertex3f(x, y, z); //top right corner
+        glVertex3f(x, -y, z); //bottom right corner
+        glVertex3f(-x, -y, z); //bottom left corner
     glEnd();
 }
 
 void drawFrontWall() {
     glBegin(GL_QUADS);
-    glColor3f(0.3, 1, 0.5); //front sea green
-    glVertex3f(-x, y, 0); //top left corner
-    glVertex3f(x, y, 0); //top right corner
-    glVertex3f(x, -y, 0); //bottom right corner
-    glVertex3f(-x, -y, 0); //bottom left corner
+        glColor3f(1, 1, 0.8);
+        glVertex3f(-x, y, 0); //top left corner
+        glVertex3f(x, y, 0); //top right corner
+        glVertex3f(x, -y, 0); //bottom right corner
+        glVertex3f(-x, -y, 0); //bottom left corner
     glEnd();
 }
 
@@ -330,11 +399,67 @@ void drawFloor() {
 
 void drawCeiling() {
     glBegin(GL_QUADS);
-    glColor3f(1, 1, 0.6); //cream
+    glColor3f(0.7, 0.7, 0.7); //cream
     glVertex3f(-x, y, 0); //left near corner
     glVertex3f(-x, y, z); //left far corner
     glVertex3f(x, y, z); //right far corner
     glVertex3f(x, y, 0); //right near corner
+    glEnd();
+}
+
+void drawTable() {
+    //right short
+    glBegin(GL_QUADS);
+        glColor3f(1, 1, 1); //white
+        glVertex3f(x/2,y, z/5); //bottom left
+        glVertex3f(x/2, y/4, z/5); //top left
+        glVertex3f(x/2, y/4, -z/5); //top right
+        glVertex3f(x/2, y, -z/5); //bottom right
+    glEnd();
+
+    //left short
+    glBegin(GL_QUADS);
+        glColor3f(1, 1, 1); //white
+        glVertex3f(-x / 2, y, z / 5); //bottom left
+        glVertex3f(-x / 2, y / 4, z / 5); //top left
+        glVertex3f(-x / 2, y / 4, -z / 5); //top right
+        glVertex3f(-x / 2, y, -z / 5); //bottom right
+    glEnd();
+
+    //top side
+    glBegin(GL_QUADS);
+        glColor3f(1, 1, 1); //white
+        glVertex3f(-x / 2, y / 4, z / 5); //bottom left
+        glVertex3f(-x / 2, y / 4, -z / 5); //top left
+        glVertex3f(x / 2, y / 4, -z / 5); //top right
+        glVertex3f(x / 2, y / 4, z / 5); //bottom right
+    glEnd();
+
+    //front face
+    glBegin(GL_QUADS);
+        glColor3f(1, 1, 1); //white
+        glVertex3f(-x / 2, y, z / 5); //bottom left
+        glVertex3f(-x / 2, y / 4, z / 5); //top left
+        glVertex3f(x / 2, y / 4, z / 5); //top right
+        glVertex3f(x / 2, y, z / 5); //bottom right
+    glEnd();
+
+    //back face
+    glBegin(GL_QUADS);
+        glColor3f(1, 1, 1); //white
+        glVertex3f(-x / 2, y, -z / 5); //bottom left
+        glVertex3f(-x / 2, y / 4, -z / 5); //top left
+        glVertex3f(x / 2, y / 4, -z / 5); //top right
+        glVertex3f(x / 2, y, -z / 5); //bottom right
+    glEnd();
+
+    //floor
+    glBegin(GL_QUADS);
+        glColor3f(1, 1, 1); //white
+        glVertex3f(-x / 2, -y / 4, z / 5); //bottom left
+        glVertex3f(-x / 2, -y / 4, -z / 5); //top left
+        glVertex3f(x / 2, -y / 4, -z / 5); //top right
+        glVertex3f(x / 2, -y / 4, z / 5); //bottom right
     glEnd();
 }
 
@@ -347,34 +472,53 @@ void display(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(eye[0], eye[1], eye[2], center[0], center[1], center[2], up[0], up[1], up[2]); //defines camera view
-
+    
     //matrix
     glPushMatrix(); //pushes matrix to stack
-    drawDoorway();
-    drawBackLong();
-    drawFrontLong();
-    drawBackWall();
-    drawFrontWall();
-    drawFloor();
-    drawCeiling();
+        drawDoorway();
+        drawBackLong();
+        drawFrontLong();
+        drawBackWall();
+        drawFrontWall();
+        drawFloor();
+        drawCeiling();
 
     glPushMatrix();//flower vase
-    glColor3f(1.0, 0.0, 0.0);
-    glTranslatef(0, 0, -1.0);
-    glScalef(4.0, 4.0, 4.0);
-    glRotatef(spin, 0, 1, 0);
-    glCallList(importRotate);
+        glColor3f(0.7, 0.6, 0.4);
+        glTranslatef(0, 0, -1.0);
+        glScalef(4.0, 4.0, 4.0);
+        glRotatef(spin, 0, 1, 0);
+        glCallList(importRotate);
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(x / 3, 0, z / 2); //from orgin
-    glRotatef(doorHinge, 0, 1, 0);
-    glTranslatef(-x / 3, 0, -z / 2); //to orgin
-    drawDoor();
+        glTranslatef(x / 3, 0, z / 2); //from orgin
+        glRotatef(doorHinge, 0, 1, 0);
+        glTranslatef(-x / 3, 0, -z / 2); //to orgin
+        drawDoor();
     glPopMatrix(); //pop matrix from stack
+
+    glPushMatrix();
+        drawTable();
+    glPopMatrix();
 
     glFlush();
     glutSwapBuffers();
+}
+
+void init()
+{
+    set_material_props();
+
+    //set_light_props(); 
+    //set_light_props2();
+   
+    glEnable(GL_DEPTH_TEST);
+    glMatrixMode(GL_PROJECTION);
+    //gluPerspective(100.0, 1.0, 1.0, 10.0);
+    //gluLookAt(eye[0], eye[1], eye[2], center[0], center[1], center[2], up[0], up[1], up[2]);
+
+    glMatrixMode(GL_MODELVIEW);
 }
 
 int main(int argc, char** argv)
@@ -400,6 +544,7 @@ int main(int argc, char** argv)
     glutTimerFunc(0, TimerRotate, 0);
     glutTimerFunc(0, Timer, 0);
 
+    init();
     glutMainLoop();
     return 0;
 }
