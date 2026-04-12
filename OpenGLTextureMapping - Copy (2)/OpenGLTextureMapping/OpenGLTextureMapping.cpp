@@ -150,7 +150,15 @@ void specialKeys(int key, int x, int y)
     glutPostRedisplay();
 }
 
-void init() {
+void display(void)
+{
+    //setup
+    //glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(eye[0], eye[1], eye[2], center[0], center[1], center[2], up[0], up[1], up[2]); //defines camera view
+    
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_DEPTH);
 
@@ -162,20 +170,6 @@ void init() {
     _textureId1 = loadTexture(image1);
     _textureId2 = loadTexture(image2);
 
-    //free memory
-    delete image1;
-    delete image2;
-}
-
-void display(void)
-{
-    //setup
-    //glClearColor(0.0, 0.0, 0.0, 0.0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(eye[0], eye[1], eye[2], center[0], center[1], center[2], up[0], up[1], up[2]); //defines camera view
-    
     //texture mapping
     glPushMatrix();
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);  
@@ -188,18 +182,17 @@ void display(void)
         glBegin(GL_QUADS);
         
         //top face (y 1.0f)
-        
-        glVertex3f(1.0f, 1.0f, -1.0f);
         glTexCoord2f(1.0f, 0.0f);
+        glVertex3f(1.0f, 1.0f, -1.0f);
        
-        glVertex3f(-1.0f, 1.0f, -1.0f);
         glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(-1.0f, 1.0f, -1.0f);
 
-        glVertex3f(-1.0f, 1.0f, 1.0f);
         glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(-1.0f, 1.0f, 1.0f);
         
-        glVertex3f(1.0f, 1.0f, 1.0f);
         glTexCoord2f(1.0f, 1.0f);
+        glVertex3f(1.0f, 1.0f, 1.0f);
             
         glBindTexture(GL_TEXTURE_2D, _textureId1); //was above tex parameteri
 
@@ -217,27 +210,157 @@ void display(void)
         glBegin(GL_QUADS);
 
         //bottom face (y -1.0f)
-
+        glTexCoord2f(1, 1);
         glVertex3f(1.0f, -1.0f, 1.0f);
-        glTexCoord2f(1,1);
 
+        glTexCoord2f(0, 1);
         glVertex3f(-1.0f, -1.0f, 1.0f);
-        glTexCoord2f(0,1);
 
+        glTexCoord2f(0, 0);
         glVertex3f(-1.0f, -1.0f, -1.0f);
-        glTexCoord2f(0,0);
 
+        glTexCoord2f(1, 0);
         glVertex3f(1.0f, -1.0f, -1.0f);
-        glTexCoord2f(1,0);
 
         glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
 
      glEnd();
      glPopMatrix();
 
-    glDisable(GL_TEXTURE_2D);
+     glPushMatrix();
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); //was GL_REPEAT
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+         glEnable(GL_TEXTURE_2D);
+         glPushMatrix();
+         glBegin(GL_QUADS);
+
+         //right face (x = 1.0f)
+
+         glTexCoord2f(1, 1);
+         glVertex3f(1.0f, 1.0f, -1.0f);
+
+         glTexCoord2f(0, 1);
+         glVertex3f(1.0f, 1.0f, 1.0f);
+
+         glTexCoord2f(0, 0);
+         glVertex3f(1.0f, -1.0f, 1.0f);
+
+         glTexCoord2f(1, 0);
+         glVertex3f(1.0f, -1.0f, -1.0f);
+
+         glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
+
+         glEnd();
+     glPopMatrix();
+
+     glPushMatrix();
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); //was GL_REPEAT
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+         glEnable(GL_TEXTURE_2D);
+         glPushMatrix();
+         glBegin(GL_QUADS);
+
+         //left face (x = -1.0f)
+
+         glTexCoord2f(1, 1);
+         glVertex3f(-1.0f, 1.0f, -1.0f);
+
+         glTexCoord2f(0, 1);
+         glVertex3f(-1.0f, 1.0f, 1.0f);
+
+         glTexCoord2f(0, 0);
+         glVertex3f(-1.0f, -1.0f, 1.0f);
+
+         glTexCoord2f(1, 0);
+         glVertex3f(-1.0f, -1.0f, -1.0f);
+
+         glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
+
+         glEnd();
+     glPopMatrix();
+
+     glPushMatrix();
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); //was GL_REPEAT
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+         glEnable(GL_TEXTURE_2D);
+         glPushMatrix();
+         glBegin(GL_QUADS);
+
+         //front face (z = -1.0f)
+
+         glTexCoord2f(1, 1);
+         glVertex3f(1.0f, 1.0f, -1.0f);
+
+         glTexCoord2f(0, 1);
+         glVertex3f(-1.0f, 1.0f, -1.0f);
+
+         glTexCoord2f(0, 0);
+         glVertex3f(-1.0f, -1.0f, -1.0f);
+
+         glTexCoord2f(1, 0);
+         glVertex3f(1.0f, -1.0f, -1.0f);
+
+         glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
+
+         glEnd();
+     glPopMatrix();
+
+     glPushMatrix();
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); //was GL_REPEAT
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+         glEnable(GL_TEXTURE_2D);
+         glPushMatrix();
+         glBegin(GL_QUADS);
+
+         //front face (z = 1.0f)
+
+         glTexCoord2f(1, 1);
+         glVertex3f(1.0f, 1.0f, 1.0f);
+
+         glTexCoord2f(0, 1);
+         glVertex3f(-1.0f, 1.0f, 1.0f);
+
+         glTexCoord2f(0, 0);
+         glVertex3f(-1.0f, -1.0f, 1.0f);
+
+         glTexCoord2f(1, 0);
+         glVertex3f(1.0f, -1.0f, 1.0f);
+
+         glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
+
+         glEnd();
+     glPopMatrix();
+
+     glPushMatrix();
+         glEnable(GL_TEXTURE_2D);
+         glBindTexture(GL_TEXTURE_2D, _textureId1);
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+         glTranslatef(0.6, 0.3, 0);
+         glRotatef(180, 0, 1, 0);
+         glScalef(0.5, 0.5, 0.5);
+         glutSolidTeapot(0.25);
+         glDisable(GL_TEXTURE_2D);
+     glPopMatrix();
+
     glFlush();
     glutSwapBuffers();
+
+    //free memory
+    delete image1;
+    delete image2;
 }
 
 void main(int argc, char** argv)
@@ -246,8 +369,6 @@ void main(int argc, char** argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); //init display mode
     glutInitWindowPosition(50, 50); //init position
     glutCreateWindow("Texture Mapping"); //window name
-
-    init();
 
     glMatrixMode(GL_PROJECTION);
     gluPerspective(60, aspect, 0, 10);
