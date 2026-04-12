@@ -172,6 +172,7 @@ void display(void)
 
     //texture mapping
     glPushMatrix();
+        glBindTexture(GL_TEXTURE_2D, _textureId1); //was above tex parameteri
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);  
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); //was GL_REPEAT
@@ -194,12 +195,11 @@ void display(void)
         glTexCoord2f(1.0f, 1.0f);
         glVertex3f(1.0f, 1.0f, 1.0f);
             
-        glBindTexture(GL_TEXTURE_2D, _textureId1); //was above tex parameteri
-
     glEnd();
     glPopMatrix();
 
     glPushMatrix();
+        glBindTexture(GL_TEXTURE_2D, _textureId1); //was above tex parameteri
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); //was GL_REPEAT
@@ -222,12 +222,11 @@ void display(void)
         glTexCoord2f(1, 0);
         glVertex3f(1.0f, -1.0f, -1.0f);
 
-        glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
-
      glEnd();
      glPopMatrix();
 
      glPushMatrix();
+         glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); //was GL_REPEAT
@@ -251,12 +250,11 @@ void display(void)
          glTexCoord2f(1, 0);
          glVertex3f(1.0f, -1.0f, -1.0f);
 
-         glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
-
          glEnd();
      glPopMatrix();
 
      glPushMatrix();
+         glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); //was GL_REPEAT
@@ -280,12 +278,11 @@ void display(void)
          glTexCoord2f(1, 0);
          glVertex3f(-1.0f, -1.0f, -1.0f);
 
-         glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
-
          glEnd();
      glPopMatrix();
 
      glPushMatrix();
+         glBindTexture(GL_TEXTURE_2D, _textureId1); //was above tex parameteri
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); //was GL_REPEAT
@@ -309,22 +306,20 @@ void display(void)
          glTexCoord2f(1, 0);
          glVertex3f(1.0f, -1.0f, -1.0f);
 
-         glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
-
          glEnd();
      glPopMatrix();
 
      glPushMatrix();
+         glBindTexture(GL_TEXTURE_2D, _textureId1); //was above tex parameteri
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); //was GL_REPEAT
          glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
-         glEnable(GL_TEXTURE_2D);
          glPushMatrix();
          glBegin(GL_QUADS);
 
-         //front face (z = 1.0f)
+         //back face (z = 1.0f)
 
          glTexCoord2f(1, 1);
          glVertex3f(1.0f, 1.0f, 1.0f);
@@ -338,21 +333,7 @@ void display(void)
          glTexCoord2f(1, 0);
          glVertex3f(1.0f, -1.0f, 1.0f);
 
-         glBindTexture(GL_TEXTURE_2D, _textureId2); //was above tex parameteri
-
          glEnd();
-     glPopMatrix();
-
-     glPushMatrix();
-         glEnable(GL_TEXTURE_2D);
-         glBindTexture(GL_TEXTURE_2D, _textureId1);
-         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-         glTranslatef(0.6, 0.3, 0);
-         glRotatef(180, 0, 1, 0);
-         glScalef(0.5, 0.5, 0.5);
-         glutSolidTeapot(0.25);
-         glDisable(GL_TEXTURE_2D);
      glPopMatrix();
 
     glFlush();
