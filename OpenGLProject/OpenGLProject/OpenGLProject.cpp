@@ -74,8 +74,8 @@ light_position2[] = { 2* x, 2 * y, z, 1.0 }; //position
 
 //Setting materials for object1 //WALLS
 
-GLfloat material_ambient[] = { 1, 1, 0.8, 1.0 }, //low light color
-material_diffuse[] = { 1, 1, 1, 1.0 }, //base color
+GLfloat material_ambient[] = { 0.8, 0.2, 0.0, 1.0 }, //low light color
+material_diffuse[] = { 0.6, 0.4, 0.4, 1.0 }, //base color
 material_specular[] = { 0, 0, 0, 1.0 }, //highlight
 material_shininess = 10;
 
