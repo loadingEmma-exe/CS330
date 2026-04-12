@@ -62,15 +62,15 @@ float translation[3] = { 0.0f, 0.0f, 0.0f }; //define translation of net movemen
 
 //Setting White Light Source RGBA
 
-GLfloat light_ambient[] = { 1.0, 1.0, 1.0, 1.0 },//color //comes from below the back wall
+GLfloat light_ambient[] = { 1.0, 1.0, 1.0, 1.0 },//color 
 light_diffuse[] = { 0.5, 0.5, 0.5, 1.0 },
 light_specular[] = { 0.8, 0.8, 0.8, 0.8 },
 light_position[] = { x, -y, -z, 1.0 }; //position
 
-GLfloat light_ambient2[] = { 1.0, 1.0, 1.0, 1.0 },//color //comes from above the doorway
+GLfloat light_ambient2[] = { 1.0, 1.0, 1.0, 1.0 },//color 
 light_diffuse2[] = { 1.0, 1.0, 1.0, 1.0 },
 light_specular2[] = { 0.8, 0.8, 0.8, 0.8 },
-light_position2[] = { 0.7, 0.7, 0.7, 1.0 }; //position
+light_position2[] = { 2* x, 2 * y, z, 1.0 }; //position
 
 //Setting materials for object1 //WALLS
 
@@ -588,17 +588,9 @@ void display(void)
     glLoadIdentity();
     gluLookAt(eye[0], eye[1], eye[2], center[0], center[1], center[2], up[0], up[1], up[2]); //defines camera view
     
-    //matrix
-    glPushMatrix(); //pushes matrix to stack
-        drawDoorway();
-        drawBackLong();
-        drawFrontLong();
-        drawBackWall();
-        drawFrontWall();
-        drawFloor();
-        drawCeiling();
+    glCallList(room);
 
-    glPushMatrix();//flower vase
+    glPushMatrix();
         glColor3f(0.7, 0.6, 0.4);
         glTranslatef(0, 0, -1.0);
         glScalef(4.0, 4.0, 4.0);
@@ -610,53 +602,11 @@ void display(void)
         glRotatef(doorHinge, 0, 1, 0);
         glTranslatef(-x / 3, 0, -z / 2); //to orgin
         drawDoor();
-    glPopMatrix(); //pop matrix from stack
-    
-    //THREE TEAPOTS ON THE TABLE
-
-    glPushMatrix();
-        glTranslatef(-2, 0, -1.5);
-
-    glPushMatrix();
-        drawTable(); 
-
-        glColor3f(1, 0, 0);
-        glTranslatef(0, 0.20, -0.5);
-        glRotatef(spin, 0, 1, 0);
-        glutSolidTeapot(0.25);
-        //set_material_props();
-
-        glColor3f(0, 1, 0);
-        glTranslatef(-0.65, 0.05, -0.5);
-        glutSolidTeapot(0.10);
-        //set_material_props2();
-    
-        glColor3f(0, 0, 1);
-        glTranslatef(1.10, 0.05, 0);
-        glutSolidTeapot(0.10);
-        //set_material_props3();
     glPopMatrix();
     
-    //Addtional 3 Objects
+    glCallList(table);
 
-    glPushMatrix();
-        glColor3f(0, 1, 0);
-        glTranslatef(2, y + 1, -2);
-        glScalef(0.5, 0.5, 0.5);
-        drawmodelSoccerball();
-    glPopMatrix();
-
-    glPushMatrix();
-        glColor3f(0.7, 0.7, 1);
-        glTranslatef(0, y + 1, z + 1);
-        drawmodelAl();
-    glPopMatrix();
-
-    glPushMatrix();
-        glColor3f(0.7, 0.7, 0.2);
-        glTranslatef(-2, y + 1, z + 1);
-        drawmodelDolphins();
-    glPopMatrix();
+    glCallList(objects);
 
     glFlush();
     glutSwapBuffers();
@@ -673,7 +623,6 @@ void init()
       
     glEnable(GL_DEPTH_TEST);
     glShadeModel(GL_SMOOTH);
-
 }
 
 int main(int argc, char** argv)
@@ -697,7 +646,14 @@ int main(int argc, char** argv)
     table = glGenLists(5);
 
     glNewList(room, GL_COMPILE);
-
+        glPushMatrix();
+            drawDoorway();
+            drawBackLong();
+            drawFrontLong();
+            drawBackWall();
+            drawFrontWall();
+            drawFloor();
+            drawCeiling();
     glEndList();
 
     glNewList(importRotate, GL_COMPILE);
@@ -705,15 +661,58 @@ int main(int argc, char** argv)
     glEndList();
 
     glNewList(door, GL_COMPILE);
-        
-    glEndList();
-
-    glNewList(objects, GL_COMPILE);
-
+        glPushMatrix();
+            glTranslatef(x / 3, 0, z / 2); //from orgin
+            glRotatef(doorHinge, 0, 1, 0);
+            glTranslatef(-x / 3, 0, -z / 2); //to orgin
+            drawDoor();
+        glPopMatrix(); //pop matrix from stack
     glEndList();
 
     glNewList(table, GL_COMPILE);
+        glPushMatrix();
+            glTranslatef(-2, 0, -1.5);
 
+            glPushMatrix();
+            drawTable();
+
+            glColor3f(1, 0, 0);
+            glTranslatef(0, 0.20, -0.5);
+            glRotatef(spin, 0, 1, 0);
+            glutSolidTeapot(0.25);
+            //set_material_props();
+
+            glColor3f(0, 1, 0);
+            glTranslatef(-0.65, 0.05, -0.5);
+            glutSolidTeapot(0.10);
+            //set_material_props2();
+
+            glColor3f(0, 0, 1);
+            glTranslatef(1.10, 0.05, 0);
+            glutSolidTeapot(0.10);
+            //set_material_props3();
+        glPopMatrix();
+    glEndList();
+
+    glNewList(objects, GL_COMPILE);
+        glPushMatrix();
+            glColor3f(0, 1, 0);
+            glTranslatef(2, y + 1, -2);
+            glScalef(0.5, 0.5, 0.5);
+            drawmodelSoccerball();
+         glPopMatrix();
+
+        glPushMatrix();
+            glColor3f(0.7, 0.7, 1);
+            glTranslatef(0, y + 1, z + 1);
+            drawmodelAl();
+        glPopMatrix();
+
+        glPushMatrix();
+            glColor3f(0.7, 0.7, 0.2);
+            glTranslatef(-2, y + 1, z + 1);
+            drawmodelDolphins();
+        glPopMatrix();
     glEndList();
 
     glutDisplayFunc(display); //allows display
