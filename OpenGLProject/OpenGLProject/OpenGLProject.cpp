@@ -1,4 +1,9 @@
 // OpenGLProject.cpp : This file contains the 'main' function. Program execution begins and ends there.
+
+//*****************************
+// Includes
+//*****************************
+
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -11,17 +16,34 @@ extern "C"
     #include "glm.h"
 }
 
-GLMmodel* pmodel2 = NULL;
-GLuint importRotate;
+//*****************************
+// Global Variables
+//*****************************
 
+//FOR IMPORTS
+GLMmodel* pmodel1 = NULL;
+GLMmodel* pmodel2 = NULL;
+GLMmodel* pmodel3 = NULL;
+GLMmodel* pmodel4 = NULL;
+
+//FOR GLCALLLIST
+GLuint importRotate;
+GLuint room;
+GLuint table;
+GLuint door;
+GLuint objects;
+
+//INIT WINDOW
 int windowWidth = 1024; //init window width
 int windowHeight = 768; //init window height
 int doorHinge = 0;
 
+//ROOM MEASURES
 int x = -3;
 int y = -3;
 int z = -9;
 
+//ROTATE
 float speed = 0.1f;
 bool open = false;
 int angle;
@@ -31,6 +53,7 @@ float spin = 0.0; //init spin to 0, for no spin
 
 bool rotating = false; //init rotating to false, for not rotating
 
+//TRANSLATIONS
 double eye[] = { 0, 1, -2}; //define the eye axis of the camera to be the z axis
 double center[] = { 0, 1, 0 }; //define center of the image to be the orgin
 double up[] = { 0, 1, 0 }; //define the up axis of the camera to be the y axis
@@ -70,6 +93,10 @@ material_diffuse3[] = { 0, 0, 0, 0 }, //base color
 material_specular3[] = { 0.5, 0.5, 0.5, 1.0 }, //hig
 material_shininess3 = 100;
 
+//*****************************
+// Setting Material Props
+//*****************************
+
 void set_material_props() //diffuse
 {
     glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient);
@@ -94,6 +121,10 @@ void set_material_props3()
     glMaterialf(GL_FRONT, GL_SHININESS, material_shininess3);
 }
 
+//*****************************
+// Setting Light Props
+//*****************************
+
 void set_light_props()
 {
     glLightfv(GL_LIGHT1, GL_POSITION, light_position);
@@ -115,6 +146,10 @@ void set_light_props2()
 
     glEnable(GL_LIGHTING);
 }
+
+//*****************************
+// Math
+//*****************************
 
 void crossProduct(double a[], double b[], double c[])
 {
@@ -162,6 +197,24 @@ void rotatePoint(double a[], double theta, double p[]) // rotation point p, with
     p[2] = temp[2];
 }
 
+//*****************************
+// Imported Objects
+//*****************************
+
+void drawmodelSoccerball(void) {
+    if (!pmodel1)
+    {
+        pmodel1 = glmReadOBJ((char*)"data/soccerball.obj");
+        if (!pmodel1) {
+            exit(0);
+        }
+        glmUnitize(pmodel1);
+        glmFacetNormals(pmodel1);
+        glmVertexNormals(pmodel1, 90.0);
+    }
+    glmDraw(pmodel1, GLM_SMOOTH | GLM_MATERIAL);
+}
+
 void drawmodel_rosevase(void)
 {
     if (!pmodel2)
@@ -175,6 +228,34 @@ void drawmodel_rosevase(void)
         glmVertexNormals(pmodel2, 90.0);
     }
     glmDraw(pmodel2, GLM_SMOOTH | GLM_MATERIAL);
+}
+
+void drawmodelAl(void) {
+    if (!pmodel3)
+    {
+        pmodel3 = glmReadOBJ((char*)"data/al.obj");
+        if (!pmodel3) {
+            exit(0);
+        }
+        glmUnitize(pmodel3);
+        glmFacetNormals(pmodel3);
+        glmVertexNormals(pmodel3, 90.0);
+    }
+    glmDraw(pmodel3, GLM_SMOOTH | GLM_MATERIAL);
+}
+
+void drawmodelDolphins(void) {
+    if (!pmodel4)
+    {
+        pmodel4 = glmReadOBJ((char*)"data/dolphins.obj");
+        if (!pmodel4) {
+            exit(0);
+        }
+        glmUnitize(pmodel4);
+        glmFacetNormals(pmodel4);
+        glmVertexNormals(pmodel4, 90.0);
+    }
+    glmDraw(pmodel4, GLM_SMOOTH | GLM_MATERIAL);
 }
 
 void drawImportRotate()
@@ -207,6 +288,10 @@ void Timer(int value) {
     glutPostRedisplay();
     glutTimerFunc(30, Timer, 0);
 }
+
+//*****************************
+// Camera Movement
+//*****************************
 
 void LeftCamera()
 { //keyboard interaction for left arrow key
@@ -280,15 +365,9 @@ void BackCamera() {
     center[2] += direction[2] * speed;
 }
 
-void drawDoor() {
-    glBegin(GL_QUADS);
-        glColor3f(1, 1, 1); //door white
-        glVertex3f(-x / 3, y, z / 2); //bottom left corner
-        glVertex3f(-x / 3, -y / 1.5, z / 2); //top left corner
-        glVertex3f(x / 3, -y / 1.5, z / 2); //top right corner
-        glVertex3f(x / 3, y, z / 2); //bottom right corner
-    glEnd();
-}
+//*****************************
+// Keyboard
+//*****************************
 
 void specialKeys(int key, int x, int y)
 { //assigns keys for keyboard interaction
@@ -324,6 +403,20 @@ void keyboard(unsigned char key, int x, int y) {
         break;
     }
     glutPostRedisplay();
+}
+
+//*****************************
+// Draw Functions
+//*****************************
+
+void drawDoor() {
+    glBegin(GL_QUADS);
+    glColor3f(1, 1, 1); //door white
+    glVertex3f(-x / 3, y, z / 2); //bottom left corner
+    glVertex3f(-x / 3, -y / 1.5, z / 2); //top left corner
+    glVertex3f(x / 3, -y / 1.5, z / 2); //top right corner
+    glVertex3f(x / 3, y, z / 2); //bottom right corner
+    glEnd();
 }
 
 void drawDoorway() {
@@ -481,6 +574,10 @@ void drawRose() {
     glCallList(importRotate);
 }
 
+//*****************************
+// INITS, DISPLAY, MAIN
+//*****************************
+
 void display(void)
 { //displays our current matrix
     //setup
@@ -505,7 +602,6 @@ void display(void)
         glColor3f(0.7, 0.6, 0.4);
         glTranslatef(0, 0, -1.0);
         glScalef(4.0, 4.0, 4.0);
-        glRotatef(spin, 0, 1, 0);
         glCallList(importRotate);
     glPopMatrix();
 
@@ -515,31 +611,51 @@ void display(void)
         glTranslatef(-x / 3, 0, -z / 2); //to orgin
         drawDoor();
     glPopMatrix(); //pop matrix from stack
+    
+    //THREE TEAPOTS ON THE TABLE
 
     glPushMatrix();
-        glShadeModel(GL_SMOOTH);
-        drawTable(); //table
-    glPopMatrix();
+        glTranslatef(-2, 0, -1.5);
 
     glPushMatrix();
+        drawTable(); 
+
         glColor3f(1, 0, 0);
         glTranslatef(0, 0.20, -0.5);
+        glRotatef(spin, 0, 1, 0);
         glutSolidTeapot(0.25);
         //set_material_props();
-    glPopMatrix();
 
-    glPushMatrix();
         glColor3f(0, 1, 0);
         glTranslatef(-0.65, 0.05, -0.5);
         glutSolidTeapot(0.10);
         //set_material_props2();
+    
+        glColor3f(0, 0, 1);
+        glTranslatef(1.10, 0.05, 0);
+        glutSolidTeapot(0.10);
+        //set_material_props3();
+    glPopMatrix();
+    
+    //Addtional 3 Objects
+
+    glPushMatrix();
+        glColor3f(0, 1, 0);
+        glTranslatef(2, y + 1, -2);
+        glScalef(0.5, 0.5, 0.5);
+        drawmodelSoccerball();
     glPopMatrix();
 
     glPushMatrix();
-        glColor3f(0, 0, 1);
-        glTranslatef(0.65, 0.05, -0.5);
-        glutSolidTeapot(0.10);
-        //set_material_props3();
+        glColor3f(0.7, 0.7, 1);
+        glTranslatef(0, y + 1, z + 1);
+        drawmodelAl();
+    glPopMatrix();
+
+    glPushMatrix();
+        glColor3f(0.7, 0.7, 0.2);
+        glTranslatef(-2, y + 1, z + 1);
+        drawmodelDolphins();
     glPopMatrix();
 
     glFlush();
@@ -554,11 +670,10 @@ void init()
 
     set_light_props(); 
     set_light_props2();
-   
+      
     glEnable(GL_DEPTH_TEST);
-    glMatrixMode(GL_PROJECTION);
+    glShadeModel(GL_SMOOTH);
 
-    glMatrixMode(GL_MODELVIEW);
 }
 
 int main(int argc, char** argv)
@@ -569,15 +684,36 @@ int main(int argc, char** argv)
 
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); //init display mode
     glutInitWindowPosition(50, 50);
-    glutCreateWindow("OpenGl Objects Project"); //window name
+    glutCreateWindow("OpenGl Project"); //window name
 
-    glEnable(GL_DEPTH_TEST); //this is breaking all of my shit...
     glMatrixMode(GL_PROJECTION);
 
     gluPerspective(100, aspect, 0.5, 10);
+
+    room = glGenLists(1);
     importRotate = glGenLists(2);
+    door = glGenLists(3);
+    objects = glGenLists(4);
+    table = glGenLists(5);
+
+    glNewList(room, GL_COMPILE);
+
+    glEndList();
+
     glNewList(importRotate, GL_COMPILE);
-    drawImportRotate();
+        drawImportRotate();
+    glEndList();
+
+    glNewList(door, GL_COMPILE);
+        
+    glEndList();
+
+    glNewList(objects, GL_COMPILE);
+
+    glEndList();
+
+    glNewList(table, GL_COMPILE);
+
     glEndList();
 
     glutDisplayFunc(display); //allows display

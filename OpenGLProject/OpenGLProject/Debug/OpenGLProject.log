@@ -1,5 +1,5 @@
 ﻿  OpenGLProject.cpp
-C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLProject\OpenGLProject\OpenGLProject.cpp(45,22): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
-C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLProject\OpenGLProject\OpenGLProject.cpp(45,25): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
-C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLProject\OpenGLProject\OpenGLProject.cpp(45,29): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLProject\OpenGLProject\OpenGLProject.cpp(68,22): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLProject\OpenGLProject\OpenGLProject.cpp(68,25): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLProject\OpenGLProject\OpenGLProject.cpp(68,29): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
   OpenGLProject.vcxproj -> C:\Users\ecray\OneDrive\Documents\CS330\CS330\OpenGLProject\Debug\OpenGLProject.exe
